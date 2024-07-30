@@ -1,3 +1,8 @@
-INSERT INTO permission (name) VALUES ('READ');
-INSERT INTO permission (name) VALUES ('WRITE');
-INSERT INTO user (name, login) VALUES ('John Doe', 'johndoe');
+INSERT INTO admin_panel_user (name, login) VALUES
+('Admin User', 'admin'),
+('Regular User', 'user1');
+
+INSERT INTO admin_panel_permission (name) VALUES
+('READ'),
+('WRITE'),
+('DELETE');

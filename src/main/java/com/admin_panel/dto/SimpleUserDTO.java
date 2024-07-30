@@ -7,9 +7,8 @@ import java.util.Set;
 
 @Getter
 @Setter
-public class UserDTO {
+public class SimpleUserDTO {
 
-    private Long id;
     private String name;
     private String login;
     private Set<String> permissions;
