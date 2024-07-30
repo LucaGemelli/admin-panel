@@ -2,6 +2,7 @@ package com.admin_panel.service;
 
 import com.admin_panel.dto.PermissionDTO;
 import com.admin_panel.dto.SimplePermissionDTO;
+import com.admin_panel.exception.ResourceNotFoundException;
 import com.admin_panel.model.Permission;
 import com.admin_panel.repository.PermissionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,9 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Override
     public void deletePermission(Long id) {
+        if (!permissionRepository.existsById(id)) {
+            throw new ResourceNotFoundException("Permission not found with id " + id);
+        }
         permissionRepository.deleteById(id);
     }
 

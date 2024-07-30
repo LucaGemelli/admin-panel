@@ -2,6 +2,7 @@ package com.admin_panel.model;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.Set;
@@ -10,6 +11,7 @@ import java.util.Set;
 @Getter
 @Setter
 @Table(name = "admin_panel_user")
+@NoArgsConstructor
 public class User {
 
     @Id

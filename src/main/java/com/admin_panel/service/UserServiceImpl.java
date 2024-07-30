@@ -2,6 +2,7 @@ package com.admin_panel.service;
 
 import com.admin_panel.dto.SimpleUserDTO;
 import com.admin_panel.dto.UserDTO;
+import com.admin_panel.exception.ResourceNotFoundException;
 import com.admin_panel.model.User;
 import com.admin_panel.model.Permission;
 import com.admin_panel.repository.PermissionRepository;
@@ -53,6 +54,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void deleteUser(Long id) {
+        if (!userRepository.existsById(id)) {
+            throw new ResourceNotFoundException("User not found with id " + id);
+        }
         userRepository.deleteById(id);
     }
 
