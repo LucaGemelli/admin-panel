@@ -2,6 +2,7 @@ package com.admin_panel.controller;
 
 import com.admin_panel.dto.SimpleUserDTO;
 import com.admin_panel.dto.UserDTO;
+import com.admin_panel.service.NotificationProducer;
 import com.admin_panel.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -20,6 +21,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private NotificationProducer notificationProducer;
+
     @GetMapping
     @Operation(summary = "Get all users", description = "Retrieve a list of all users")
     public ResponseEntity<List<UserDTO>> getAllUsers() {
@@ -31,6 +35,7 @@ public class UserController {
     @Operation(summary = "Create a new user", description = "Create a new user with the provided information")
     public ResponseEntity<UserDTO> createUser(@RequestBody SimpleUserDTO userDTO) {
         UserDTO createdUser = userService.createUser(userDTO);
+        notificationProducer.sendNotification("User created: " + createdUser.getName());
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
 
