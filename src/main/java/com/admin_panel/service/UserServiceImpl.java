@@ -73,9 +73,11 @@ public class UserServiceImpl implements UserService {
         User user = new User();
         user.setName(userDTO.getName());
         user.setLogin(userDTO.getLogin());
-        user.setPermissions(userDTO.getPermissions().stream()
-                .map(permissionName -> permissionRepository.findByName(permissionName))
-                .collect(Collectors.toSet()));
+        if (null != userDTO.getPermissions()) {
+            user.setPermissions(userDTO.getPermissions().stream()
+                    .map(permissionName -> permissionRepository.findByName(permissionName))
+                    .collect(Collectors.toSet()));
+        }
         return user;
     }
 }
