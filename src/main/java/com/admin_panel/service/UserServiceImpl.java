@@ -60,6 +60,10 @@ public class UserServiceImpl implements UserService {
         userRepository.deleteById(id);
     }
 
+    public boolean isPermissionInUse(Long permissionId) {
+        return userRepository.existsByPermissions_Id(permissionId);
+    }
+
     private UserDTO convertToDTO(User user) {
         UserDTO userDTO = new UserDTO();
         userDTO.setId(user.getId());

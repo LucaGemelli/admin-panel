@@ -11,4 +11,5 @@ public interface UserService {
     UserDTO createUser(SimpleUserDTO userDTO);
     UserDTO updateUser(Long id, UserDTO userDTO);
     void deleteUser(Long id);
+    boolean isPermissionInUse(Long permissionId);
 }

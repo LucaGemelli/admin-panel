@@ -14,6 +14,13 @@ import java.util.Map;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+
+    @ExceptionHandler(ResourceConflictException.class)
+    public ResponseEntity<ApiError> handleResourceConflictException(ResourceConflictException ex, WebRequest request) {
+        ApiError apiError = new ApiError(HttpStatus.CONFLICT.value(), ex.getMessage());
+        return new ResponseEntity<>(apiError, HttpStatus.CONFLICT);
+    }
+
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ApiError> handleResourceNotFoundException(ResourceNotFoundException ex, WebRequest request) {
         ApiError apiError = new ApiError(HttpStatus.NOT_FOUND.value(), ex.getMessage());

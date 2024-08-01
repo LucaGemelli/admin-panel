@@ -2,6 +2,7 @@ package com.admin_panel.service;
 
 import com.admin_panel.dto.PermissionDTO;
 import com.admin_panel.dto.SimplePermissionDTO;
+import com.admin_panel.exception.ResourceConflictException;
 import com.admin_panel.exception.ResourceNotFoundException;
 import com.admin_panel.model.Permission;
 import com.admin_panel.repository.PermissionRepository;
@@ -16,6 +17,8 @@ public class PermissionServiceImpl implements PermissionService {
 
     @Autowired
     private PermissionRepository permissionRepository;
+    @Autowired
+    private UserServiceImpl userService;
 
     @Override
     public List<PermissionDTO> getAllPermissions() {
@@ -52,8 +55,12 @@ public class PermissionServiceImpl implements PermissionService {
         if (!permissionRepository.existsById(id)) {
             throw new ResourceNotFoundException("Permission not found with id " + id);
         }
+        if (userService.isPermissionInUse(id)) {
+            throw new ResourceConflictException("Cannot delete permission because it is currently in use by one or more users.");
+        }
         permissionRepository.deleteById(id);
     }
+
 
     private PermissionDTO convertToDTO(Permission permission) {
         PermissionDTO permissionDTO = new PermissionDTO();
